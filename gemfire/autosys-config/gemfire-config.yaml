@@ -1,0 +1,36 @@
+retentionTime: 14
+diskStoreLocation: xyz
+datastoreName: DEFAULT
+NASbaseDirectory: /temp/backup
+
+enviroments:
+  - enviroment:
+    name: devint
+    locators:
+      - server1
+      - server2
+    nodes:
+      - server3
+      - server4
+      - server5
+      - server6
+  - enviroment:
+    name: benchbdc
+    locators:
+      - server1
+      - server2
+    nodes:
+      - server3
+      - server4
+      - server5
+      - server6
+  - enviroment:
+    name: benchssb
+    locators:
+      - server1
+      - server2
+    nodes:
+      - server3
+      - server4
+      - server5
+      - server6
