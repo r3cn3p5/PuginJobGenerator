@@ -1,11 +1,9 @@
-
-
 plugins {
     id 'java'
 }
 
 // Apply the plugin
-apply plugin: JobGeneratorPlugin
+apply plugin: AutosysJobGeneratorPlugin
 
 version '1.0-SNAPSHOT'
 
@@ -17,11 +15,11 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-jobGeneratorSettings {
+autosysJobGeneratorSettings {
     cfgFile = 'gemfire/autosys-config/gemfire-config.yaml'
 }
 
-build.dependsOn jobGenerator
+build.dependsOn autosysJobGenerator
 
 
 

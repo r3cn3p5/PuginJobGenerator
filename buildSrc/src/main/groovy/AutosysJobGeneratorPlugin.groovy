@@ -2,16 +2,16 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.yaml.snakeyaml.Yaml
 
-class JobGeneratorPlugin implements Plugin<Project> {
+class AutosysJobGeneratorPlugin implements Plugin<Project> {
     void apply(Project project) {
 
-        project.extensions.create("jobGeneratorSettings", JobGeneratorPluginExtension)
+        project.extensions.create("autosysJobGeneratorSettings", AutosysJobGeneratorPluginExtension)
 
-        project.task('jobGenerator') {
+        project.task('autosysJobGenerator') {
             doLast {
                 println("Autosys Job Generator started")
 
-                def aFile = new File("${project.jobGeneratorSettings.cfgFile}")
+                def aFile = new File("${project.autosysJobGeneratorSettings.cfgFile}")
                 def cfg = new Yaml().load(aFile.newInputStream() )
 
                 println ("NAS base directory: " + cfg.NASbaseDirectory)
@@ -26,11 +26,10 @@ class JobGeneratorPlugin implements Plugin<Project> {
                     File dir = new File("${project.buildDir}/autosys/${environment.name}")
                     dir.mkdir()
 
-
                     // for each locator
                     for (locator in environment.locators) {
-
                         println "Locator: " + locator
+
                         // Backup job
                         File file = new File("${project.buildDir}/autosys/${environment.name}/${environment.name}-backup-${locator}.JIL")
                         file.write"Backup file for - " + environment.name + "-" + locator
@@ -46,15 +45,15 @@ class JobGeneratorPlugin implements Plugin<Project> {
                         File file = new File("${project.buildDir}/autosys/${environment.name}/${environment.name}-restore-${node}.JIL")
                         file.write"Restore file for - " + environment.name + "-" + node
 
+
                     }
                 }
-
             }
         }
     }
 }
 
-class JobGeneratorPluginExtension {
+class AutosysJobGeneratorPluginExtension {
     String cfgFile
     String outputDirectory
 }
